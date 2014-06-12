@@ -46,3 +46,11 @@ describe "Box" do
     end
   end
 end
+
+
+describe "traversal" do
+  it "should have a distance of 1 if the boxes is a neighbor" do
+    board = Board.new(8)
+    box
+  end
+end
