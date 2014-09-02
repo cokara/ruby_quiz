@@ -1,10 +1,26 @@
 require "./board.rb"
+require 'pry'
 describe "Board" do
   describe "a new board" do
     it "should have 64 boxes" do
       board = Board.new(8)
       board.boxes.count.should == 64
     end
+  end
+
+  describe('labels') do
+    let(:board) { Board.new(8) }
+
+    it 'returns the correct box' do
+      box = board.box('a1')
+      expect(box.coords).to eq([1,1])
+    end
+
+    it 'returns the no box if the box doesnt exists' do
+      box = board.box('w4')
+      expect(box).to be_nil
+    end
+
   end
 end
 
@@ -47,10 +63,27 @@ describe "Box" do
   end
 end
 
+describe "path to target" do
+
+  let(:board) { Board.new(8) }
+
+  context "one step away" do
+    it 'path to the target should have only one box' do
+      expect(board.paths('a1', 'b3')).to eq([['a1', 'b3']])
+    end
+  end
+
+  context "two steps away" do
+    it 'includes the 2 step path' do
+      expect(board.paths('a1', 'c1')).to include([['a1', 'b3', 'c1']])
+    end
+  end
+end
+
 
 describe "traversal" do
   it "should have a distance of 1 if the boxes is a neighbor" do
     board = Board.new(8)
-    box
+    #box
   end
 end
