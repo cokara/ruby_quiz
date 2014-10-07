@@ -1,9 +1,10 @@
 class Board
-  attr_reader :boxes
+  attr_reader :boxes, :length
 
   LETTER_STR = "_abcdefghij"
 
   def initialize(length)
+    @length = length
     ar = (1..length).to_a
     @boxes = ar.product(ar).map do |(x,y)|
       Box.new(x, y, length)
@@ -13,7 +14,6 @@ class Board
   def paths(source_str, target_str)
     source = box(source_str)
     target = box(target_str)
-    binding.pry
     all_paths(source, target, [source.to_s])
   end
 
@@ -25,7 +25,7 @@ class Board
     else
       results = []
       source.neighbors.each do |(x,y)|
-        neighbor = Box.new(x,y,8)
+        neighbor = Box.new(x,y,length)
         next if current_path.include?(neighbor.to_s)
         current_path << neighbor.to_s
         results << all_paths(neighbor, target, current_path)
